@@ -1,0 +1,53 @@
+<h1>Enter Expense:</h1>
+<form action="{% url 'expense:add' %}" method="POST">
+    {% csrf_token %}
+    <div>
+        <table border="0" cellspacing=30 width="1000px">
+            <tr>
+                <td>Expense Name:</td> <td>{{form.expense_item}}</td>
+            </tr>
+            <tr>
+                <td>Unit:</td><td> {{form.unit}}</td>
+            </tr>
+            <tr>
+                <td>Amount(Rs.):</td><td> {{form.amount}}</td>
+            </tr>   
+            <tr>
+                <td></td>
+                <td><button type="submit" name="Add"> Add
+                </button>
+                </td>
+            </tr>
+    </table>
+</div>
+</form>
+
+<h1>List of Expenses</h1>
+<table border="2"  cellspacing=0  width="600px">
+    <thead>
+        <tr>
+            <th>Expense Item </th>
+            <th>Unit</th>
+            <th>Amount(Rs.)</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+
+    <tbody>
+
+        {% for expense in expenses %}
+            <tr>
+            
+                <td>{{ expense.expense_item }}</td>
+                <td> {{ expense.unit}}</td>
+                <td>{{ expense.amount }}</td>
+                <td>
+                    <form action="{% url 'expense:delet' expense.id %}" method="post">
+                        {% csrf_token %}
+                        <button>Delete</button>
+                    </form>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody> 
+</table> 
